@@ -88,3 +88,24 @@ pipenv
       sync       Installs all packages specified in Pipfile.lock.
       uninstall  Uninstalls a provided package and removes it from Pipfile.
       update     Runs lock, then sync.
+
+
+FireBase 
+        
+    $ pip install pyrebase
+
+Add Pyrebase to your application
+    
+For use with only user based authentication we can create the following configuration:
+    
+    import pyrebase
+    
+    config = {
+      "apiKey": "apiKey",
+      "authDomain": "projectId.firebaseapp.com",
+      "databaseURL": "https://databaseName.firebaseio.com",
+      "storageBucket": "projectId.appspot.com"
+    }
+    
+    firebase = pyrebase.initialize_app(config)
+
