@@ -109,3 +109,14 @@ For use with only user based authentication we can create the following configur
     
     firebase = pyrebase.initialize_app(config)
 
+
+Insert four million rows of test “blog posts” into a database using:
+    
+    model will be
+    
+    class BlogPost(models.Model):
+        title = models.CharField(max_length=255)
+        author = models.CharField(max_length=60)
+
+    INSERT INTO blogpost_blogpost (title, author) SELECT md5(random()::text), md5(random()::text)
+    FROM (SELECT generate_series(0, 4000000)) as t;

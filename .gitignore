@@ -80,7 +80,7 @@ target/
 *.log
 *.pyc
 
-.env
+djangoFirebase/.env
 db.sqlite3
 .idea
 /media

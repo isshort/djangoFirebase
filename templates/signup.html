@@ -5,11 +5,12 @@
     <title>Sign Up</title>
 </head>
 <body>
-<form action="{% url 'signup' %}" method="post">
+<form action="" method="post">
     {% csrf_token %}
-    Username <input type="text" name="username">
-    Email <input type="email" name="email">
-    Password <input type="password" name="password">
+    {{ form.as_p }}
+{#    Username <input type="text" name="username">#}
+{#    Email <input type="email" name="email">#}
+{#    Password <input type="password" name="password">#}
     <input type="submit" value="Submit">
 </form>
 </body>

@@ -62,3 +62,31 @@ class User(AbstractBaseUser, PermissionsMixin):
         super(User, self).clean()
         if not (self.email or self.phone):
             raise ValidationError(_('Provide at least phone or email'))
+
+
+class Question(models.Model):
+    text = models.CharField(max_length=200)
+
+class Answer(models.Model):
+    question = models.ForeignKey(Question, on_delete=models.CASCADE)
+    score = models.DecimalField(decimal_places=2, max_digits=10)
+    date=models.DateTimeField(auto_now=True)
+    class Meta:
+        order_with_respect_to = 'question'
+        permissions = (
+            ('can_view_answer', 'can view answer'),
+        )
+        constraints = [
+            # Ensures constraint on DB level, raises IntegrityError(if score less then 50 on debug = False)
+            models.CheckConstraint(check=models.Q(score__gte=50), name="score__gte_50")
+        ]
+
+    def clean(self):
+        # Ensures constraint on model level, raises ValidationError
+        if self.score < 50:
+            # raise error for field
+            raise ValidationError({'score': _('score cannot be smaller then 50.')})
+
+class BlogPost(models.Model):
+    title = models.CharField(max_length=255)
+    author = models.CharField(max_length=60)

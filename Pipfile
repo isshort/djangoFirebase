@@ -5,10 +5,10 @@ name = "pypi"
 
 [packages]
 django = "*"
-python-dotenv = "*"
 psycopg2 = "*"
 pillow = "*"
 pyrebase = "*"
+python-dotenv = "*"
 
 [dev-packages]
 

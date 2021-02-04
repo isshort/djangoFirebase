@@ -1,11 +1,5 @@
 import os
-
-from dotenv import load_dotenv
-
-load_dotenv()
-
 import pyrebase
-
 config = {
     "apiKey": os.getenv("apiKey"),
     "authDomain": os.getenv("authDomain"),

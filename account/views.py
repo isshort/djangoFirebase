@@ -1,5 +1,10 @@
+from django.contrib.auth import login
 from django.shortcuts import render
+from django.views.generic import CreateView, TemplateView
+
 from account.firebase_config import firebase
+from account.form import UserForm
+from account.models import User
 
 auth = firebase.auth()
 database = firebase.database()
@@ -9,30 +14,33 @@ def index(request):
     return render(request, "index.html")
 
 
-def login(request):
-    print("your request mehtod is ", request.method)
-    if request.method == "POST":
+class LoginView(TemplateView):
+    template_name = "login.html"
+
+    def get(self, request, *args, **kwargs):
+        return render(request, 'login.html')
+
+    def post(self, request, *args, **kwargs):
         email = request.POST.get('email')
         password = request.POST.get("password")
         user = auth.sign_in_with_email_and_password(email, password)
-        id_token=user['idToken']
-        print("id_token",id_token)
-        account=auth.get_account_info(id_token)
-        print("your account is ",account)
-        return render(request, "index.html", {"user": user})
-    return render(request, "login.html")
+        id_token = user['idToken']
+        request.session['uid'] = id_token
+        # print("id_token", id_token)
+        # account = auth.get_account_info(id_token)
+        # login(request, user)
+        return render(request, "index.html", {'user': user})
 
 
-def sign_up(request):
-    if request.method == "POST":
-        username = request.POST.get('username')
-        email = request.POST.get('email')
-        password = request.POST.get("password")
+class SignUpView(CreateView):
+    template_name = "signup.html"
+    model = User
+    form_class = UserForm
 
-        user = auth.create_user_with_email_and_password(email, password)
+    def form_valid(self, form):
+        data = form.data.dict()
+        user = auth.create_user_with_email_and_password(email=data['email'], password=data['password'])
         uid = user['localId']
-        data = {'name': username, 'status': '1'}
-        database.child('users').child(uid).child('details').set(data)
-        return render(request, 'index.html', {'user': user})
-    return render(request, 'signup.html')
+        database.child('account_users').child(uid).child('details').set(data)
 
+        return render(self.request, 'index.html', {'user': user, 'data': data})
