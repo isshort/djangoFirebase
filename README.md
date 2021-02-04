@@ -33,8 +33,23 @@ to create hstore extension.
       $ \c data_base_name
 
       $ CREATE EXTENSION hstore;
- 
+For MySql
+    
+    My Config
 
+    create file my.cnf in the project and edit this file
+
+    [client]
+    database = firebase
+    user = admin1234
+    password = admin1234
+    default-character-set = utf8
+
+in queryset if you are using  other database 
+    
+    Question.objects.all().using('backup')
+    #backup is database connection which defined in setting.py
+    
 pipenv
 
     Installing packages for your project
@@ -112,11 +127,25 @@ For use with only user based authentication we can create the following configur
 
 Insert four million rows of test “blog posts” into a database using:
     
-    model will be
+    # model will be
     
     class BlogPost(models.Model):
         title = models.CharField(max_length=255)
         author = models.CharField(max_length=60)
-
+    #Query will be
     INSERT INTO blogpost_blogpost (title, author) SELECT md5(random()::text), md5(random()::text)
     FROM (SELECT generate_series(0, 4000000)) as t;
+
+Example
+
+I added a defer to the previous iterator example:
+
+        for b in BlogPost.objects.all().defer('title').iterator():
+            b.author = "Me, myself, and I"
+            b.save()
+
+    On my toy data set, deferring the unused field reduced the additional 
+    memory allocated by the Django shell process from 500MB to about 300MB, 
+    or a little less than a 50% reduction. This seems reasonable since each 
+    object consists of an integer and two strings of equal size, and we’re 
+    omitting one of the strings.

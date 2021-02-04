@@ -9,6 +9,7 @@ psycopg2 = "*"
 pillow = "*"
 pyrebase = "*"
 python-dotenv = "*"
+mysqlclient = "*"
 
 [dev-packages]
 

@@ -90,3 +90,5 @@ dump.sql
 */migrations/*
 !*/migrations/__init__.py
 !*/migrations/*.sql
+
+my.cnf
