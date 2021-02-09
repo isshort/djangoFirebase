@@ -47,6 +47,6 @@ class SignUpView(CreateView):
 
 
 """
-This is master branch
+This is testing1 branch
 
 """
