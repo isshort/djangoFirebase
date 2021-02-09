@@ -44,3 +44,9 @@ class SignUpView(CreateView):
         database.child('account_users').child(uid).child('details').set(data)
 
         return render(self.request, 'index.html', {'user': user, 'data': data})
+
+
+"""
+This is master branch
+
+"""
