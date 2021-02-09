@@ -49,4 +49,6 @@ class SignUpView(CreateView):
 """
 This is testing1 branch
 
+Namatullah Wahidi
+
 """
