@@ -21,10 +21,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.getenv("SECRET_KEY")
+SECRET_KEY = os.getenv("DJANGO_SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.getenv("DEBUG")
+DEBUG = True
 
 ALLOWED_HOSTS = []
 
@@ -37,8 +37,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
-    'account',
+    'django.contrib.sites',
+    'blog',
+    'allauth',
+    # 'allauth.account',
+    # 'allauth.socialaccount',
+    # 'allauth.socialaccount.providers.google',
 ]
 
 MIDDLEWARE = [
@@ -78,11 +82,11 @@ WSGI_APPLICATION = 'djangoFirebase.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': os.getenv("DB_NAME"),
+        'NAME': os.getenv("DB"),
         'USER': os.getenv("DB_USER"),
         'PASSWORD': os.getenv("DB_PASSWORD"),
         'HOST': os.getenv("DB_HOST"),
-        'PORT': '',
+        'PORT': os.getenv("DB_PORT"),
     },
     'backup': {
         'ENGINE': 'django.db.backends.mysql',
@@ -128,4 +132,4 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-AUTH_USER_MODEL = 'account.User'
+AUTH_USER_MODEL = 'blog.User'

@@ -1,5 +1,8 @@
 import os
 import pyrebase
+from dotenv import load_dotenv
+
+load_dotenv()
 config = {
     "apiKey": os.getenv("apiKey"),
     "authDomain": os.getenv("authDomain"),
@@ -11,4 +14,5 @@ config = {
     "databaseURL": os.getenv("databaseURL"),
 
 }
+# print("your api key is ",os.getenv('apiKey'))
 firebase = pyrebase.initialize_app(config)

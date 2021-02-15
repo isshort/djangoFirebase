@@ -3,8 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <title>Login Page</title>
+    <style>
+        .red {
+            background-color: red;
+        }
+
+        .green {
+            background-color: green;
+        }
+        .yellow{
+            background-color: yellow;
+        }
+    </style>
 </head>
 <body>
-{{ user }}
+{#{{ user }}#}
+Namatullah
+
+{% for foo in info %}
+    <p class="{% cycle 'red' 'green' 'yellow'%}">
+        hello
+    </p>
+{% endfor %}
+{% regroup cities by country as country_list%}
+<ul>
+    {% for country in country_list %}
+        <li>{{ country.grouper }}</li>
+        <ul>
+        {% for city in country.list %}
+            <li>{{ city.name }}: {{ city.populations }}</li>
+        {% endfor %}
+        
+        </ul>
+        
+    {% endfor %}
+
+</ul>
+
 </body>
 </html>

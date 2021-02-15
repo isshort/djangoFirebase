@@ -2,16 +2,30 @@ from django.contrib.auth import login
 from django.shortcuts import render
 from django.views.generic import CreateView, TemplateView
 
-from account.firebase_config import firebase
-from account.form import UserForm
-from account.models import User
+from blog.firebase_config import firebase
+from blog.form import UserForm
+from blog.models import User
 
 auth = firebase.auth()
 database = firebase.database()
 
 
 def index(request):
-    return render(request, "index.html")
+    info = [
+        {'name': "Namatullah", 'surname': "Wahidi"},
+        {'name': "Rahim", 'surname': "R"},
+        {'name': "Nawid", 'surname': "akhtar"},
+        {'name': "Enayet", 'surname': "Sayeed"},
+        {'name': "Hadi", 'surname': "Ekrami"},
+    ]
+    cities = [
+        {'name': "Bishkek", 'populations': '2000000', 'country': "Kyrgyzstan"},
+        {'name': "Batken", 'populations': '1000000', 'country': "Kyrgyzstan"},
+        {'name': "Ankara", 'populations': '5000000', 'country': "Turkey"},
+        {'name': "Kabul", 'populations': '6000000', 'country': "Afghanistan"},
+        {'name': "Tashkent", 'populations': '5000000', 'country': "Uzbekistan"},
+    ]
+    return render(request, "index.html", {'info': info,'cities':cities})
 
 
 class LoginView(TemplateView):

@@ -1,6 +1,6 @@
 from django import forms
 
-from account.models import User
+from blog.models import User
 
 
 class UserForm(forms.ModelForm):
