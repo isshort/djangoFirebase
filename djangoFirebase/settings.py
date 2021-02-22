@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     # 'allauth.account',
     # 'allauth.socialaccount',
     # 'allauth.socialaccount.providers.google',
+    # 'guardian',
 ]
 
 MIDDLEWARE = [
@@ -76,6 +77,14 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'djangoFirebase.wsgi.application'
 
+ 
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',  # default
+    'allauth.account.auth_backends.AuthenticationBackend',
+    # 'guardian.backends.ObjectPermissionBackend',
+)
+
+ 
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
@@ -133,3 +142,18 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 AUTH_USER_MODEL = 'blog.User'
+
+SITE_ID = 1
+LOGIN_REDIRECT_URL = '/'
+
+SOCIALACCOUNT_PROVIDERS = {
+    'google': {
+        'SCOPE': [
+            'profile',
+            'email',
+        ],
+        'AUTH_PARAMS': {
+            'access_type': 'online',
+        }
+    }
+}

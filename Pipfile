@@ -11,6 +11,8 @@ pyrebase = "*"
 python-dotenv = "*"
 mysqlclient = "*"
 django-allauth = "*"
+django-guardian = "*"
+cryptography = "*"
 
 [dev-packages]
 
