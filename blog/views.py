@@ -8,7 +8,9 @@ from blog.models import User
 
 auth = firebase.auth()
 database = firebase.database()
+import logging
 
+logger=logging.getLogger('blog')
 
 def index(request):
     info = [
@@ -60,13 +62,3 @@ class SignUpView(CreateView):
         return render(self.request, 'index.html', {'user': user, 'data': data})
 
 
-"""
-This is testing1 branch
-
-Namatullah Wahidi
-
-favorite color is green
-
-children
-pull request 
-"""
